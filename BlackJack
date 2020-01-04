@@ -1,0 +1,57 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class BlackJack {
+
+    int hrac = 0;
+    int kasino = 0;
+
+    public void zacniHru(){
+        Scanner sken = new Scanner(System.in);
+        String volba = "A";
+
+        while(volba.equals("A")||volba.equals("a")){
+
+            Random karta = new Random();
+            int hodnota = karta.nextInt(9)+1;
+           
+            hrac += hodnota;
+            System.out.println("Aktualna hodnota je "+ hrac);
+
+            if (hrac>21){
+                System.out.println("Prehral si");
+                System.exit(0);
+            }
+            System.out.println("Chces dalsiu kratu (A/N)");
+            volba = sken.nextLine();
+
+        }
+        Random karta = new Random();
+
+        while(kasino<=21){
+            kasino+= karta.nextInt(9)+1;
+
+        }
+        if(kasino >21){
+            System.out.println("Vyhral si (dealer ma:"+kasino+")");
+            System.exit(0);
+        }
+        else if(hrac == kasino){
+            System.out.println("Ramiza...");
+            zacniHru();
+
+        }
+        else if(hrac <kasino){
+            System.out.println("Prehral si(ty: "+hrac+" ; kasino " +kasino);
+        }
+        else if(hrac>kasino){
+            System.out.println("Vyhral si(ty: "+hrac+" ; kasino " +kasino);
+        }
+    }
+
+    public static void main(String[] args) {
+        BlackJack bj = new BlackJack();
+        bj.zacniHru();
+    }
+
+}
