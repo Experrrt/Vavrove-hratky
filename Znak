@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class Znak {
+    char znak='a';
+    int samohlaska=0;
+    Scanner scn = new Scanner(System.in);
+
+    public void znaky(){
+
+        while(znak!='0'){
+            samohlaska=0;
+            System.out.print("Zadajte znak:");
+            znak = scn.next().charAt(0);
+            switch(znak){
+                case'a':
+                case'e':
+                case'i':
+                case'o':
+                case'u':
+                case'y':
+                case'A':
+                case'E':
+                case'I':
+                case'O':
+                case'U':
+                case'Y':samohlaska++;
+            }
+            if(samohlaska>0){
+                System.out.println("Znak " +znak+ " je samohlaska...");
+            }else{
+                if((znak>='a' && znak<='z') || (znak>='A' && znak<='Z')){
+                    System.out.println("Znak "+ znak + " je spoluhlaska...");
+                }else{
+                    System.out.println("Znak "+ znak + " nie je v abecede...");
+
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+       Znak zn = new Znak();
+        zn.znaky();
+    }
+
+}
