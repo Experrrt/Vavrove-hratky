@@ -1,0 +1,45 @@
+import java.util.Vector;
+import java.util.Random;
+import java.util.Scanner;
+
+public class CodeEnigma {
+
+    String stvorica = new String();
+    Scanner sc = new Scanner(System.in);
+    int znak =0;
+    Random  rd = new Random();
+    Vector sprava = new Vector();
+    int dlzkaSpravy =0;
+
+    public void generuj(){
+
+        System.out.print("Zadajt dlzku spravy: ");
+        dlzkaSpravy = sc.nextInt();
+
+        for (int i = 0; i < dlzkaSpravy; i++) {
+            stvorica = new String();
+
+            for (int j = 0; j < 4; j++) {
+                znak = rd.nextInt(25)+65;
+                stvorica += (char)znak;
+
+            }
+            sprava.add(stvorica);
+            if(i%20 !=0&&i!=dlzkaSpravy||i==1){
+                System.out.print("-");
+            }
+            if(i%20 ==0&&i>0){
+                System.out.println("");
+
+            }
+            System.out.print(sprava.elementAt(i));
+        }
+        System.out.println("");
+    }
+
+    public static void main(String[] args) {
+        CodeEnigma eng = new CodeEnigma();
+        eng.generuj();
+    }
+
+}
