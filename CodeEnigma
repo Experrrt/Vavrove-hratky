@@ -24,7 +24,7 @@ public class CodeEnigma {
                 stvorica += (char)znak;
 
             }
-            //tu sa stvorica pridava do vectora sprava,takto to vyzera vo vectore [ABCD,EFGH], ak by to niekojo zaujimalo tak miesto stvorice ABCD v sprave ma index 0,EFGH ma index 1)
+            //tu sa stvorica pridava do vectora sprava,takto to vyzera vo vectore [ABCD,EFGH], ak by to niekoho zaujimalo tak miesto stvorice ABCD v sprave ma index 0,EFGH ma index 1)
             sprava.add(stvorica);
             //oba if sa odporucam naucit naspamat lebo tie nevedel ani vavro :D
             //
