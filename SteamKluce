@@ -15,7 +15,7 @@ public class steamvol2 {
                     System.out.print(rd.nextInt(10));
                 }
             }
-            if(i%3!=0&&i!=0) {
+            if(i%3!=0) {
                 System.out.print("-");
             }
             if(i%3==0){
