@@ -1,39 +1,33 @@
 import java.util.Random;
-
-public class SteamKluce {
+public class steamvol2 {
     Random rd = new Random();
-    String petica = new String();
-    int pismeno;
     int sanca = 0;
-    int cislo = 0;
-    public void generujPetice(){
-        //Vavro neskor povedal ze mame vygenerovat 100 steam kodov, to znamena ze 300 petic
-            for(int i=1;i<301;i++){
-                petica = new String();
-                for (int j = 0; j < 5; j++) {
-                    sanca = rd.nextInt(9)+1;
 
-                    if (sanca <=5){
-                        pismeno = rd.nextInt(25)+65;
-                        System.out.print((char)pismeno);
-
-                    }
-                    else if(sanca >=6){
-                        cislo=rd.nextInt(8)+1;
-                        System.out.print(cislo);
-
-                    }
-
+    public void generuj(){
+        for(int i =1;i<=300;i++){
+            for (int y =0;y<5;y++){
+                sanca =rd.nextInt(9)+1;
+                if(sanca <=5){
+                    sanca=rd.nextInt(25)+65;
+                    System.out.print((char)sanca);
                 }
-                if(i%3!=0)System.out.print("-");
-                else System.out.println("");
+                else {
+                    System.out.print(rd.nextInt(10));
+                }
+            }
+            if(i%3!=0&&i!=0) {
+                System.out.print("-");
+            }
+            if(i%3==0){
+                System.out.print(" "+i/3);
+                System.out.println();
             }
         }
-
-
-    public static void main(String[]args){
-        SteamKluce sk = new SteamKluce();
-        sk.generujPetice();
     }
 
+public static void main (String[]args){
+    steamvol2 st = new steamvol2();
+    st.generuj();
+    }
 }
+
