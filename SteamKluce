@@ -19,7 +19,6 @@ public class steamvol2 {
                 System.out.print("-");
             }
             if(i%3==0){
-                System.out.print(" "+i/3);
                 System.out.println();
             }
         }
