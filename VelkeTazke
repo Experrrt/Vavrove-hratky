@@ -1,0 +1,67 @@
+package dendobry;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.geom.*;
+import java.util.Vector;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Random;
+public class VykreslujGraf extends JFrame {
+    
+    Vector ciary = new Vector();
+    String body = new String();
+    String bod[] =null;
+    String[] lines = null;
+    
+    public VykreslujGraf(int X , int Y){
+        setBounds(X,Y,500,500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(500,500));
+        pack();
+        setVisible(true);
+        setResizable(false);
+    }
+    @Override
+    public void paint(Graphics g){
+        Graphics2D grafika = (Graphics2D)g;
+        for (int i = 0; i < ciary.size(); i++) {
+            grafika.draw((Line2D)ciary.elementAt(i));
+        }
+    }    
+    public void pridajCiaru(int X,int Y,int Xf,int Yf){
+        Line2D linka = new Line2D.Float(X,Y,Xf,Yf);
+        ciary.add(linka);
+    }
+    public void nacitajGraf(int X,int Y,String nazov){
+        try{
+            body = new String(Files.readAllBytes(Paths.get(".//src//dendobry//"+nazov)));
+        
+        }catch(Exception ex){
+            System.out.println("Graf sa nenasiel");
+        }
+        lines = body.split("EOL");
+        
+        
+        for (int i = 0; i < lines.length; i++) {
+            bod = lines[i].split(",");
+            this.pridajCiaru(X+Integer.valueOf(bod[0]),Y+Integer.valueOf(bod[1]),X+Integer.valueOf(bod[2]),Y+Integer.valueOf(bod[3]));
+        }
+        this.repaint();
+    }
+        public void VykresliPocet(int kolko,String subor){
+            Random rd = new Random();
+            for (int i = 0; i < kolko; i++) {
+                
+  
+            nacitajGraf(rd.nextInt(500),rd.nextInt(500),"graf.dat");
+            }
+            }
+    
+    
+        public static void main(String[]args){
+        VykreslujGraf gf = new VykreslujGraf(500,200);
+        //gf.nacitajGraf(10,10,"graf.dat");
+        gf.VykresliPocet(500,"graf.dat");
+        }
+ 
+}
