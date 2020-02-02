@@ -1,0 +1,81 @@
+import java.awt.*;
+import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.geom.Line2D;
+import java.util.Vector;
+import java.awt.event.KeyEvent;
+import java.awt.MouseInfo;
+import javax.swing.JPanel;
+
+public class Daco extends JPanel{
+
+    Vector ciary = new Vector();
+    Vector ciara = new Vector();
+
+    int clicks = 0;
+    char ps = 1;
+    int x =0;
+    int y =0;
+    Color ck = new Color(255,0, 0,75);
+    public Daco(int X , int Y){
+
+        JFrame jf = new JFrame();
+        jf.setBounds(X,Y,1920,1080);
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.add(this);
+        jf.setPreferredSize(new Dimension(2560,1440));
+        jf.pack();
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(true);
+        jf.setResizable(false);
+        jf.addKeyListener(new KeyAdapter() {public void keyTyped(KeyEvent e) { ps=(e.getKeyChar());} });
+        jf.addMouseListener(new MouseAdapter() { public void mousePressed(MouseEvent me){
+            clicks++;
+            x = me.getX();
+            y = me.getY();
+            ciara.add(x-7);
+            ciara.add(y-32);
+            System.out.println("daco");
+            if(clicks>1) {
+                Line2D linka = new Line2D.Float((int) ciara.elementAt(2*clicks - 4), (int) ciara.elementAt(2*clicks - 3), x-7, y-32);
+                System.out.println("daco");
+                ciary.add(linka);
+                repaint();
+                }
+            }
+        });
+    }
+    @Override
+    public void paintComponent(Graphics g){
+        Graphics2D grafika2 = (Graphics2D)g;
+        Graphics2D grafika = (Graphics2D)g;
+        grafika2.setColor(ck);
+        if(ps =='r'){
+            clicks =0;
+            ps =1;
+            ciara = new Vector();
+            super.paintComponent(grafika2);
+        }
+        if(clicks>=1) {
+            int X = MouseInfo.getPointerInfo().getLocation().x;
+            int Y = MouseInfo.getPointerInfo().getLocation().y;
+            Line2D lnk = new Line2D.Float(x-7, y-32, X-7, Y-32);
+            super.paintComponent(grafika2);
+            grafika2.draw(lnk);
+            try {
+                Thread.sleep(10);
+            }catch (Exception e) {
+                System.exit(0);
+            }
+        }
+        for(int i=0;i<ciary.size();i++) {
+            grafika.setColor(Color.BLACK);
+            grafika.draw((Shape) ciary.elementAt(i));
+        }
+        this.repaint();
+    }
+    public static void main(String[]args){
+        Daco gf = new Daco(0,0);
+    }
+}
