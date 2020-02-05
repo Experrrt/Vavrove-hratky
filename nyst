@@ -21,13 +21,12 @@ public class Daco extends JPanel{
     int x =0;
     int y =0;
     String[] lines = null;
-    String body = new String();
+    String body ="";
     String bod[] =null;
     Color ck = new Color(255,0, 0,75);
     Color ck2 = new Color(0,0, 0);
-    public Daco(int X , int Y){
+    public Daco(){
         JFrame jf = new JFrame();
-        jf.setBounds(X,Y,1920,1080);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.add(this);
         jf.setPreferredSize(new Dimension(2560,1440));
@@ -56,10 +55,6 @@ public class Daco extends JPanel{
     }
     @Override
     public void paintComponent(Graphics g){
-        Graphics2D grafika3 = (Graphics2D)g;
-        for (int i = 0; i < ciary.size(); i++) {
-            grafika3.draw((Line2D)ciary.elementAt(i));
-        }
         input(ps);
         Graphics2D grafika2 = (Graphics2D)g;
         Graphics2D grafika = (Graphics2D)g;
@@ -70,7 +65,7 @@ public class Daco extends JPanel{
             ciara = new Vector();
             super.paintComponent(grafika2);
         }
-        //input(ps);
+
         if(clicks>=1) {
             int X = MouseInfo.getPointerInfo().getLocation().x;
             int Y = MouseInfo.getPointerInfo().getLocation().y;
@@ -83,15 +78,11 @@ public class Daco extends JPanel{
                 System.exit(0);
             }
         }
-        //super.paintComponent(grafika);
         for(int i=0;i<ciary.size();i++) {
             grafika.setColor(ck2);
             grafika.draw((Shape) ciary.elementAt(i));
-
         }
         this.repaint();
-
-
     }
     public void save(String nazov){
         String daco ="";
@@ -119,7 +110,7 @@ public class Daco extends JPanel{
         Line2D linka = new Line2D.Float(X,Y,Xf,Yf);
         ciary.add(linka);
     }
-    public void nacitajGraf(int X,int Y,String nazov){
+    public void nacitajGraf(String nazov){
         try{
             body = new String(Files.readAllBytes(Paths.get(".//"+nazov)));
 
@@ -130,12 +121,12 @@ public class Daco extends JPanel{
 
         for (int i = 1; i < lines.length; i++) {
             bod = lines[i].split(",");
-            this.pridajCiaru(X+Integer.valueOf(bod[0]),Y+Integer.valueOf(bod[1]),X+Integer.valueOf(bod[2]),Y+Integer.valueOf(bod[3]));
+            this.pridajCiaru(Integer.parseInt(bod[0]),Integer.parseInt(bod[1]),Integer.parseInt(bod[2]),Integer.parseInt(bod[3]));
 
         }
 
     }
-    int kolko =0;
+
     public void input(char pss){
         if(pss =='s'){
             ps=1;
@@ -163,8 +154,8 @@ public class Daco extends JPanel{
     }
 
     public static void main(String[]args){
-        Daco gf = new Daco(0,0);
-        gf.nacitajGraf(0, 0, "graf.dat");
+        Daco gf = new Daco();
+        gf.nacitajGraf( "graf.dat");
 
         }
 }
