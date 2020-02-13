@@ -1,21 +1,18 @@
-
-public class NewMain {
-    long[] fib = new long[60];
+public class Fibonnaci {
+    int[]tbh = new int[30];
     
     public void generuj(){
-        fib[0]=1;
-        fib[1]=1;
-        for (int i = 2; i < 60; i++) {
-            fib[i]=fib[i-1]+fib[i-2];
-           }
-        for (int i = 0; i < 60; i++) {
-            System.out.print(fib[i]+",");
+        tbh[0]=1;
+        tbh[1]=1;
+        for (int i = 2; i < 30; i++) {
+            tbh[i]=tbh[i-1]+tbh[i-2];
         }
-    }
-    
+        for (int i = 0; i < 30; i++) {
+            System.out.print(tbh[i]+",");
+        }
+    }   
     public static void main(String[] args) {
-        NewMain mn = new NewMain();
+        Fibonnaci mn = new Fibonnaci();
         mn.generuj();
     }
 }
-
