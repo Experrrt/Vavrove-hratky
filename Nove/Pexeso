@@ -1,0 +1,94 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Pexeso {
+    public static final String green = "\u001B[32m";
+    public static final String red = "\u001B[31m";
+    public static final String reset = "\u001B[0m";
+
+    Scanner sc = new Scanner(System.in);
+    int rozmer=5;
+    int uhadnute =0;
+    int [][] original = new int[rozmer][rozmer];
+    int [][] pracovna = new int [rozmer][rozmer];
+    String [] celyInput = new String[4];
+    int pocetParov = rozmer*rozmer;
+
+    private List<Integer> karty = new ArrayList<Integer>();
+
+    public void generuj(){
+        for (int i = 1; i < pocetParov+1; i++) {
+            karty.add(i);
+            karty.add(i);
+        }
+        Collections.shuffle(karty);
+        int index=0;
+        for (int i = 0; i < original.length; i++) {
+            for (int j = 0; j < original.length; j++) {
+                original[i][j]=karty.get(index);
+                index++;
+            }
+        }
+    }
+    public void hraciePole(){
+        for (int i = 0; i < original.length; i++) {
+            for (int j = 0; j < original.length; j++) {
+                if (pracovna[i][j]==0){
+                    System.out.print("#♦/");
+                }
+                else if(pracovna[i][j]==-1){
+                    System.out.print(red+original[i][j]+"♦/"+reset);
+                }
+                else if(pracovna[i][j]==1){
+                    System.out.print(green+original[i][j]+"♦/"+reset);
+                }
+            }
+            System.out.println();
+        }
+    }
+    public void hra(){
+        this.generuj();
+        hraciePole();
+        while(uhadnute!=rozmer){
+        System.out.println("Zadajte hodnoty: ");
+        String input = sc.nextLine();
+        celyInput = input.split(",");
+        if(celyInput.length==4){
+            if(original[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])]==original[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])]){
+                if((Integer.parseInt(celyInput[0])!=Integer.parseInt(celyInput[2]))||(Integer.parseInt(celyInput[1])!=Integer.parseInt(celyInput[3]))) {
+                    uhadnute++;
+                    pracovna[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])]=1;
+                    pracovna[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])]=1;
+                }
+                else{
+                    System.out.println(red+"Nemozes pouzit ten isty koordinat"+reset);
+                }
+                hraciePole();
+            }
+        else{
+                if((pracovna[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])]) !=1&& (pracovna[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])])!=1) {
+                    pracovna[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])] = -1;
+                    pracovna[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])] = -1;
+                    hraciePole();
+                    pracovna[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])] = 0;
+                    pracovna[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])] = 0;
+                }
+                else{
+                    System.out.println("Dane miesto si uz uhadol");
+                }
+        }
+            System.out.println("Uhadnute: "+green+uhadnute+reset);
+        }else{
+            System.out.println(red+"Nebol zadany spravny pocet koordinatov"+reset);
+        }
+        }
+        System.out.println(green+"Vyhral si"+reset);
+    }
+
+    public static void main(String[] args) {
+        Pexeso px = new Pexeso();
+        px.hra();
+    }
+}
