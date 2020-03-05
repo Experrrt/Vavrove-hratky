@@ -55,37 +55,39 @@ public class Pexeso {
         this.generuj();
         hraciePole();
         while(uhadnute!=pocetParov){
-        System.out.println("Zadajte hodnoty: ");
-        String input = sc.nextLine();
-        celyInput = input.split(",");
-        if(celyInput.length==4){
-            if(original[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])]==original[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])]){
-                if((Integer.parseInt(celyInput[0])!=Integer.parseInt(celyInput[2]))||(Integer.parseInt(celyInput[1])!=Integer.parseInt(celyInput[3]))) {
-                    uhadnute++;
-                    pracovna[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])]=1;
-                    pracovna[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])]=1;
-                }
-                else{
-                    System.out.println(red+"Nemozes pouzit ten isty koordinat"+reset);
-                }
-                hraciePole();
-            }
-        else{
-                if((pracovna[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])]) !=1&& (pracovna[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])])!=1) {
-                    pracovna[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])] = -1;
-                    pracovna[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])] = -1;
+            System.out.println("Zadajte hodnoty: ");
+            String input = sc.nextLine();
+            celyInput = input.split(",");
+            if(celyInput.length==4){
+                if(original[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])]==original[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])]){
+                    if((Integer.parseInt(celyInput[0])!=Integer.parseInt(celyInput[2]))||(Integer.parseInt(celyInput[1])!=Integer.parseInt(celyInput[3]))) {
+                        if ((pracovna[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])]!=1)&&(pracovna[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])]!=1)){
+                            uhadnute++;
+                        pracovna[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])] = 1;
+                        pracovna[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])] = 1;
+                    }
+                    }
+                    else{
+                        System.out.println(red+"Nemozes pouzit ten isty koordinat"+reset);
+                    }
                     hraciePole();
-                    pracovna[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])] = 0;
-                    pracovna[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])] = 0;
                 }
                 else{
-                    System.out.println("Dane miesto si uz uhadol");
+                    if((pracovna[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])]) !=1&& (pracovna[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])])!=1) {
+                        pracovna[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])] = -1;
+                        pracovna[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])] = -1;
+                        hraciePole();
+                        pracovna[Integer.parseInt(celyInput[0])][Integer.parseInt(celyInput[1])] = 0;
+                        pracovna[Integer.parseInt(celyInput[2])][Integer.parseInt(celyInput[3])] = 0;
+                    }
+                    else{
+                        System.out.println("Dane miesto si uz uhadol");
+                    }
                 }
-        }
-            System.out.println("Uhadnute: "+green+uhadnute+reset);
-        }else{
-            System.out.println(red+"Nebol zadany spravny pocet koordinatov"+reset);
-        }
+                System.out.println("Uhadnute: "+green+uhadnute+reset);
+            }else{
+                System.out.println(red+"Nebol zadany spravny pocet koordinatov"+reset);
+            }
         }
         System.out.println(green+"Vyhral si"+reset);
     }
