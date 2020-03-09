@@ -5,12 +5,12 @@ import java.awt.*;
 public class Map {
     public void render(Graphics g){
         Graphics2D g2d = (Graphics2D)g;
-        g2d.fillRect(150,800,100,50);
+        g2d.fillRect(150,600,100,50);
         g2d.setColor(Color.BLUE);
-        g2d.draw(getTop());
-        g2d.draw(getBottom());
-        g2d.draw(getLeft());
-        g2d.draw(getRight());
+        //g2d.draw(getTop());
+        //g2d.draw(getBottom());
+        //g2d.draw(getLeft());
+        //g2d.draw(getRight());
     }
 
 
@@ -19,16 +19,16 @@ public class Map {
         return new Rectangle(x,y,width,height);
     }
     public Rectangle getTop(){
-        return new Rectangle(150,790,100,10);
+        return new Rectangle(150-2,596,100+4,10);
     }
     public Rectangle getBottom(){
-        return new Rectangle(150,800+44,100,6);
+        return new Rectangle(150-2,600+44,100+4,6);
     }
     public Rectangle getRight(){
-        return new Rectangle(250-6,800+6,10,50-10);
+        return new Rectangle(250-6,600+6,14,50-14);
     }
     public Rectangle getLeft(){
-        return new Rectangle(150-6,800+6,10,50-10);
+        return new Rectangle(150-6,600+6,14,50-14);
     }
 
 
