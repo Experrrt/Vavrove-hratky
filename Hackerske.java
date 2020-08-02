@@ -1,4 +1,3 @@
-package pisomencka;
 import java.util.Vector;
 
 
