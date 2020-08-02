@@ -10,7 +10,7 @@ public class BlackJack {
         Scanner sken = new Scanner(System.in);
         String volba = "A";
         
-        //vsetko co je vo while sa bude opakovat pokial bude platit podmienka(volba.equals...)
+        //vvvvvvvsetko co je vo while sa bude opakovat pokial bude platit podmienka(volba.equals...)
         while(volba.equals("A")||volba.equals("a")){
 
             Random karta = new Random();
