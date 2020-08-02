@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Vector;
 
-public class GenerujKluc {
+public class SteamKluc {
     Vector kluc = new Vector();
     String nTica = new String();
     Random rnd = new Random();
@@ -28,7 +28,7 @@ public class GenerujKluc {
 
 
     public static void main(String[]args){
-        GenerujKluc gn = new GenerujKluc();
+     SteamKluc gn = new SteamKluc();
         gn.generuj(10,5);
     }
 }

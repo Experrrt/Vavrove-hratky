@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.MouseInfo;
 import javax.swing.JPanel;
 
-public class Daco extends JPanel{
+public class VelkeTazke extends JPanel{
 
     Vector ciary = new Vector();
     Vector ciara = new Vector();
@@ -26,7 +26,7 @@ public class Daco extends JPanel{
     String bod[] =null;
     Color ck = new Color(255,0, 0,75);
     Color ck2 = new Color(0,0, 0);
-    public Daco(){
+    public VelkeTazke(){
         JFrame jf = new JFrame();
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.add(this);
@@ -172,7 +172,7 @@ public class Daco extends JPanel{
     }
 
     public static void main(String[]args){
-        Daco gf = new Daco();
+        VelkeTazke gf = new VelkeTazke();
         gf.nacitajGraf( "graf.dat");
 
         }

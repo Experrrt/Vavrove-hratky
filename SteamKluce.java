@@ -1,5 +1,5 @@
 import java.util.Random;
-public class steamvol2 {
+public class SteamKluce {
     Random rd = new Random();
     int sanca = 0;
 
@@ -25,7 +25,7 @@ public class steamvol2 {
     }
 
 public static void main (String[]args){
-    steamvol2 st = new steamvol2();
+    SteamKluce st = new SteamKluce();
     st.generuj();
     }
 }

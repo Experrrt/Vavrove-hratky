@@ -1,7 +1,7 @@
 package subor;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-public class NewClass {
+public class SuborNovsi {
     
     String udaje = new String();
     String[]osoby = null;
@@ -30,7 +30,7 @@ public class NewClass {
     }
     
     public static void main(String[]args){
-        NewClass nc = new NewClass();
+        SuborNovsi nc = new SuborNovsi();
         nc.zober();
         nc.fetschuj();
     }        
