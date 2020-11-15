@@ -1,17 +1,21 @@
-import java.util.Scanner;
-
 public class Piskvorky {
     public static void main(String[] args) {
 
-        // Scanner sc = new Scanner(System.in);
-
-        String[] pole = new String[3];
-
-        pole[0] = "O_OXXO_XX";
-        pole[1] = "OXO__X_OX";
-        pole[2] = "_XO__X___";
+        String[] pole = {
+            "XXXOO__O_", // vyhral X
+            "XOXOXOXXO", // vyhral X
+            "XOOOXOXXO", // vyhral O
+            "XOXOOXXXO", // remiza
+            "XO_OOX_X_", // nedokoncena hra
+            "XO_XO_XOX", // chybny vstup
+            "_O_X__X_X", // chybny vstup
+            "_OOOO_X_X", // chybny vstup
+            "XOXOXOXXO", // vyhral X
+            "OXOXOOOXX", // vyhral O
+            "OXOOXXXOX", // remiza
+            };
         
-        for (int y = 0; y < 3; y++) {
+        for (int y = 0; y < pole.length; y++) {
             System.out.println("------------");
         
             int pocetX=0;
