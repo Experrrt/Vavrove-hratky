@@ -1,10 +1,9 @@
 import java.util.*;
-import java.util.Random;
 import org.nocrala.tools.texttablefmt.BorderStyle;
 import org.nocrala.tools.texttablefmt.Table;
 
 public class LietadloLetenky {
-    int pocRadov = 6, pocSedadiel, cenaPrvaT, cenaDruhaT, obPrvaT, obDruhaT;
+    private int pocRadov = 6, pocSedadiel, cenaPrvaT, cenaDruhaT, obPrvaT, obDruhaT;
     String odkial, kam, listSedadla[][];
 
     LietadloLetenky(String odkial, String kam, int pocetSedadiel, int cenaPrvaT, int cenaDruhaT) {
@@ -17,9 +16,10 @@ public class LietadloLetenky {
     }
 
     public void mainLoop() {
-        generujLietadlo();
-        int odpoved = -1;
-        while (odpoved != 0) {
+        int odpoved;
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
             System.out.println("[" + odkial + " - " + kam + "]\n");
             System.out.println("1. Obsadenosť");
             System.out.println("2. Predať letenku");
@@ -27,7 +27,8 @@ public class LietadloLetenky {
             System.out.println("0. Ukončiť \n");
 
             System.out.print("Voľba: ");
-            odpoved = new Scanner(System.in).nextInt();
+            odpoved = sc.nextInt();
+
             System.out.println("------------------------------\n");
             switch (odpoved) {
                 case 1:
@@ -39,17 +40,21 @@ public class LietadloLetenky {
                 case 3:
                     vypisStatistiku();
                     break;
+                case 0:
+                    System.exit(0);
+                    break;
             }
             System.out.println("\n------------------------------");
         }
     }
 
     public void generujLietadlo() {
+        Random rnd = new Random();
         for (int i = 0; i < pocRadov; i++) {
             int altCode = 64;
             for (int y = 0; y < pocSedadiel; y++) {
                 altCode++;
-                if (new Random().nextInt(100) < 30) {
+                if (rnd.nextInt(100) < 30) {
                     listSedadla[i][y] = "\u001B[31m" + Integer.toString(i + 1) + (char) altCode + "\u001B[0m";
                     if (i == 0)
                         obPrvaT++;
@@ -61,6 +66,7 @@ public class LietadloLetenky {
                 listSedadla[i][y] = Integer.toString(i + 1) + (char) altCode;
             }
         }
+        mainLoop();
     }
 
     public void vypisStatistiku() {
@@ -120,5 +126,9 @@ public class LietadloLetenky {
         }
         System.out.println(table.render() + "\n");
         System.out.println("Počet obsadených miest: " + (obDruhaT + obPrvaT));
+    }
+
+    public static void main(String[] args) {
+        new LietadloLetenky("PRAGUE", "BRATISLAVA", 9, 4900, 380).generujLietadlo();
     }
 }
