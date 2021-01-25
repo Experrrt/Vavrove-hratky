@@ -5,8 +5,7 @@ import org.nocrala.tools.texttablefmt.Table;
 
 public class LietadloLetenky {
     int pocRadov = 6, pocSedadiel, cenaPrvaT, cenaDruhaT, obPrvaT, obDruhaT;
-    String odkial, kam;
-    String listSedadla[][];
+    String odkial, kam, listSedadla[][];
 
     LietadloLetenky(String odkial, String kam, int pocetSedadiel, int cenaPrvaT, int cenaDruhaT) {
         this.odkial = odkial;
@@ -19,7 +18,6 @@ public class LietadloLetenky {
 
     public void mainLoop() {
         generujLietadlo();
-        Scanner sc = new Scanner(System.in);
         int odpoved = -1;
         while (odpoved != 0) {
             System.out.println("[" + odkial + " - " + kam + "]\n");
@@ -29,8 +27,8 @@ public class LietadloLetenky {
             System.out.println("0. Ukončiť \n");
 
             System.out.print("Voľba: ");
-            odpoved = sc.nextInt();
-            System.out.println();
+            odpoved = new Scanner(System.in).nextInt();
+            System.out.println("------------------------------\n");
             switch (odpoved) {
                 case 1:
                     vykresliLietadlo();
@@ -42,17 +40,16 @@ public class LietadloLetenky {
                     vypisStatistiku();
                     break;
             }
-            System.out.println();
+            System.out.println("\n------------------------------");
         }
     }
 
     public void generujLietadlo() {
-        Random random = new Random();
         for (int i = 0; i < pocRadov; i++) {
             int altCode = 64;
             for (int y = 0; y < pocSedadiel; y++) {
                 altCode++;
-                if (random.nextInt(100) < 20) {
+                if (new Random().nextInt(100) < 30) {
                     listSedadla[i][y] = "\u001B[31m" + Integer.toString(i + 1) + (char) altCode + "\u001B[0m";
                     if (i == 0)
                         obPrvaT++;
@@ -72,19 +69,19 @@ public class LietadloLetenky {
         int moznaSuma = pocSedadiel * cenaPrvaT + (celkovyPocetS - pocSedadiel) * cenaDruhaT;
         float zarobenaSuma = obPrvaT * cenaPrvaT + obDruhaT * cenaDruhaT;
 
-        System.out.println("Počet miest: " + celkovyPocetS);
+        System.out.println("Celkový počet miest: " + celkovyPocetS);
         System.out.printf("Počet obsadených miest: %.0f (%.1f%%) %n", pocObsaden, (pocObsaden / celkovyPocetS) * 100);
-        System.out.printf("Možné výnosy: %,d %n", moznaSuma);
+        System.out.printf("Celkové možné výnosy: %,d %n", moznaSuma);
         System.out.printf("Suma za predané lístky: %,.0f (%.1f%%) %n", zarobenaSuma, (zarobenaSuma / moznaSuma) * 100);
     }
 
     public void vykresliLietadlo() {
+        ArrayList<Integer> ulicky = new ArrayList<Integer>();
+
         if (pocSedadiel < 4 || pocSedadiel > 9 || pocRadov < 4 || pocRadov > 9) {
             System.out.println("Nespravne zadané parametre");
             System.exit(0);
         }
-
-        ArrayList<Integer> ulicky = new ArrayList<Integer>();
 
         switch (pocSedadiel) {
             case 6:
@@ -107,6 +104,7 @@ public class LietadloLetenky {
                 ulicky.add(2);
                 break;
         }
+
         Table table = new Table(pocSedadiel + ulicky.size(), BorderStyle.DESIGN_FORMAL_WIDE);
 
         for (int z = 0; z < pocRadov; z++) {
