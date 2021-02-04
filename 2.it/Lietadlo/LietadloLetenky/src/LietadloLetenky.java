@@ -20,7 +20,7 @@ public class LietadloLetenky {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            System.out.println("[" + odkial + " - " + kam + "]\n");
+            System.out.println("\n[" + odkial + " - " + kam + "]\n");
             System.out.println("1. Obsadenosť");
             System.out.println("2. Predať letenku");
             System.out.println("3. Štatistika");
@@ -33,6 +33,7 @@ public class LietadloLetenky {
             switch (odpoved) {
                 case 1:
                     vykresliLietadlo();
+                    System.out.println("\nPočet obsadených miest: " + (obDruhaT + obPrvaT));
                     break;
                 case 2:
                     predajLetenku();
@@ -53,9 +54,6 @@ public class LietadloLetenky {
         for (int i = 0; i < pocRadov; i++) {
             for (int y = 0; y < pocSedadiel; y++) {
                 if (rnd.nextInt(100) < 30) {
-
-                    // listSedadla[i][y] = "\u001B[31m" + Integer.toString(i + 1) + (char) altCode +
-                    // "\u001B[0m";
                     listSedadla[i][y] = 1;
                     if (i == 0)
                         obPrvaT++;
@@ -64,7 +62,6 @@ public class LietadloLetenky {
 
                     continue;
                 }
-                // listSedadla[i][y] = Integer.toString(i + 1) + (char) altCode;
                 listSedadla[i][y] = 0;
             }
         }
@@ -73,19 +70,74 @@ public class LietadloLetenky {
 
     public void predajLetenku() {
         Scanner sc = new Scanner(System.in);
+        int rad, odpoved, trieda;
+        char sedadlo;
 
-        while (true) {
-            int rad;
-            char sedadlo;
+        System.out.println("[TRIEDA]\n");
+        System.out.println("1. Prvá trieda (cena: €" + cenaPrvaT + ")");
+        System.out.println("2. Druhá trieda (cena: €" + cenaDruhaT + ")");
+        System.out.println("0. Návrat\n");
 
+        System.out.print("Voľba: ");
+        odpoved = sc.nextInt();
+        trieda = odpoved;
+        if (odpoved == 0)
+            return;
+
+        System.out.println("\n[MIESTO]\n");
+        System.out.println("1. Vybrať miesto");
+        System.out.println("2. Prideliť náhodne miesto");
+        System.out.println("0. Návrat\n");
+
+        System.out.print("Voľba: ");
+        odpoved = sc.nextInt();
+        System.out.println();
+
+        if (odpoved == 1) {
+            vykresliLietadlo();
+
+            System.out.print("\nZadajte číslo radu: ");
             rad = sc.nextInt();
+            System.out.print("Zadajte písmeno sedadla: ");
             sedadlo = sc.next().charAt(0);
-            if (rad > pocRadov || (sedadlo - 64) > pocSedadiel || listSedadla[rad - 1][sedadlo - 65] == 1) {
-                System.out.println("Nespravne zadane parametre");
-                continue;
+            sedadlo = Character.toUpperCase(sedadlo);
+            System.out.println();
+
+            if (rad > pocRadov || (sedadlo - 64) > pocSedadiel || listSedadla[rad - 1][sedadlo - 65] == 1
+                    || (trieda == 1 && rad != trieda) || (trieda == 2 && rad < 2)) {
+                System.out.println("\n\u001B[31mNesprávne zadané parametre.\u001B[0m");
+            } else {
+                listSedadla[rad - 1][sedadlo - 65] = 1;
+                vykresliLietadlo();
+                System.out.println("\nPridelené miesto: " + rad + "" + sedadlo);
+                if (trieda == 1)
+                    obPrvaT++;
+                else
+                    obDruhaT++;
             }
-            listSedadla[rad - 1][sedadlo - 65] = 1;
-            break;
+        } else if (odpoved == 2) {
+            Random rnd = new Random();
+
+            while (true) {
+                int rndSedadlo = rnd.nextInt(pocSedadiel);
+                int rndRad = 0;
+                if (trieda == 2) {
+                    rndRad = rnd.nextInt(pocRadov - 1) + 1;
+                }
+                if (listSedadla[rndRad][rndSedadlo] != 1) {
+                    listSedadla[rndRad][rndSedadlo] = 1;
+
+                    System.out.println();
+                    vykresliLietadlo();
+                    System.out.println("\nPridelené miesto: " + (rndRad + 1) + "" + (char) (rndSedadlo + 65));
+
+                    if (trieda == 1)
+                        obPrvaT++;
+                    else
+                        obDruhaT++;
+                    break;
+                }
+            }
         }
     }
 
@@ -102,10 +154,10 @@ public class LietadloLetenky {
     }
 
     public void vykresliLietadlo() {
-        ArrayList<Integer> ulicky = new ArrayList<Integer>();
+        ArrayList<Integer> ulicky = new ArrayList<>();
 
         if (pocSedadiel < 4 || pocSedadiel > 9 || pocRadov < 4 || pocRadov > 9) {
-            System.out.println("Nespravne zadané parametre");
+            System.out.println("\nNespravne zadané parametre");
             System.exit(0);
         }
 
@@ -150,11 +202,10 @@ public class LietadloLetenky {
                 }
             }
         }
-        System.out.println(table.render() + "\n");
-        System.out.println("Počet obsadených miest: " + (obDruhaT + obPrvaT));
+        System.out.println(table.render());
     }
 
     public static void main(String[] args) {
-        new LietadloLetenky("PRAGUE", "BRATISLAVA", 9, 4900, 380).generujLietadlo();
+        new LietadloLetenky("PRAGUE", "BRATISLAVA", 5, 4900, 380).generujLietadlo();
     }
 }
