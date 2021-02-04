@@ -3,8 +3,8 @@ import org.nocrala.tools.texttablefmt.BorderStyle;
 import org.nocrala.tools.texttablefmt.Table;
 
 public class LietadloLetenky {
-    private int pocRadov = 6, pocSedadiel, cenaPrvaT, cenaDruhaT, obPrvaT, obDruhaT;
-    String odkial, kam, listSedadla[][];
+    private int pocRadov = 6, pocSedadiel, cenaPrvaT, cenaDruhaT, obPrvaT, obDruhaT, listSedadla[][];
+    String odkial, kam;
 
     LietadloLetenky(String odkial, String kam, int pocetSedadiel, int cenaPrvaT, int cenaDruhaT) {
         this.odkial = odkial;
@@ -12,7 +12,7 @@ public class LietadloLetenky {
         this.pocSedadiel = pocetSedadiel;
         this.cenaPrvaT = cenaPrvaT;
         this.cenaDruhaT = cenaDruhaT;
-        listSedadla = new String[pocRadov][pocetSedadiel];
+        listSedadla = new int[pocRadov][pocetSedadiel];
     }
 
     public void mainLoop() {
@@ -35,7 +35,7 @@ public class LietadloLetenky {
                     vykresliLietadlo();
                     break;
                 case 2:
-                    System.out.println("Predať letenku");
+                    predajLetenku();
                     break;
                 case 3:
                     vypisStatistiku();
@@ -51,11 +51,12 @@ public class LietadloLetenky {
     public void generujLietadlo() {
         Random rnd = new Random();
         for (int i = 0; i < pocRadov; i++) {
-            int altCode = 64;
             for (int y = 0; y < pocSedadiel; y++) {
-                altCode++;
                 if (rnd.nextInt(100) < 30) {
-                    listSedadla[i][y] = "\u001B[31m" + Integer.toString(i + 1) + (char) altCode + "\u001B[0m";
+
+                    // listSedadla[i][y] = "\u001B[31m" + Integer.toString(i + 1) + (char) altCode +
+                    // "\u001B[0m";
+                    listSedadla[i][y] = 1;
                     if (i == 0)
                         obPrvaT++;
                     else
@@ -63,10 +64,29 @@ public class LietadloLetenky {
 
                     continue;
                 }
-                listSedadla[i][y] = Integer.toString(i + 1) + (char) altCode;
+                // listSedadla[i][y] = Integer.toString(i + 1) + (char) altCode;
+                listSedadla[i][y] = 0;
             }
         }
         mainLoop();
+    }
+
+    public void predajLetenku() {
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            int rad;
+            char sedadlo;
+
+            rad = sc.nextInt();
+            sedadlo = sc.next().charAt(0);
+            if (rad > pocRadov || (sedadlo - 64) > pocSedadiel || listSedadla[rad - 1][sedadlo - 65] == 1) {
+                System.out.println("Nespravne zadane parametre");
+                continue;
+            }
+            listSedadla[rad - 1][sedadlo - 65] = 1;
+            break;
+        }
     }
 
     public void vypisStatistiku() {
@@ -115,12 +135,18 @@ public class LietadloLetenky {
 
         for (int z = 0; z < pocRadov; z++) {
             int pouziteUlicky = 0;
+            int altCode = 64;
             for (int i = 0; i < pocSedadiel + ulicky.size(); i++) {
                 if (ulicky.contains(i)) {
                     pouziteUlicky++;
                     table.addCell(null);
                 } else {
-                    table.addCell(listSedadla[z][i - pouziteUlicky]);
+                    altCode++;
+                    if (listSedadla[z][i - pouziteUlicky] == 0) {
+                        table.addCell(Integer.toString(z + 1) + (char) altCode);
+                        continue;
+                    }
+                    table.addCell("\u001B[31m" + Integer.toString(z + 1) + (char) altCode + "\u001B[0m");
                 }
             }
         }
