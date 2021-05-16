@@ -68,6 +68,7 @@ public class LietadloLetenky {
         mainLoop();
     }
 
+    // rebeka je tupa
     public void predajLetenku() {
         Scanner sc = new Scanner(System.in);
         int rad, odpoved, trieda;
@@ -206,6 +207,6 @@ public class LietadloLetenky {
     }
 
     public static void main(String[] args) {
-        new LietadloLetenky("PRAGUE", "BRATISLAVA", 5, 4900, 380).generujLietadlo();
+        new LietadloLetenky("PRAGUE", "BRATISLAVA", 6, 4900, 380).generujLietadlo();
     }
 }
