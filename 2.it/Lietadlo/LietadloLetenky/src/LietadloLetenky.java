@@ -68,7 +68,6 @@ public class LietadloLetenky {
         mainLoop();
     }
 
-    // rebeka je tupa
     public void predajLetenku() {
         Scanner sc = new Scanner(System.in);
         int rad, odpoved, trieda;
