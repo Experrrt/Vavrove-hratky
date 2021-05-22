@@ -10,13 +10,13 @@ public class PremenaMasky {
 
         for (int i = 0; i < cisla.length; i++) {
             int cisloMasky = Integer.parseInt(cisla[i]);
-            for (int j = 128; j > 0; j = j / 2) {
+            for (int j = 128; j > 0; j /= 2) {
                 if (cisloMasky - j >= 0) {
                     celkovyPocetJednotiek++;
                     cisloMasky -= j;
                 }
             }
         }
-        System.out.println("Celkovy pocet jednotiek: " + celkovyPocetJednotiek);
+        System.out.println("Celkový počet jednotiek: " + celkovyPocetJednotiek);
     }
 }
